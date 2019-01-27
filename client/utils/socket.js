@@ -1,4 +1,13 @@
 import io from "socket.io-client";
-const ws = io("ws://192.168.123.175:8080");
+let ws;
+export const createConnection = ip => {
+  ws = io(`ws://${ip}:8080`);
 
-export default ws;
+  return ws;
+};
+
+const getWs = () => {
+  return ws;
+};
+
+export default getWs;

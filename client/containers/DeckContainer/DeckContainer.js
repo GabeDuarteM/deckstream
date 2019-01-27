@@ -1,19 +1,18 @@
 import React from "react";
-import ws from "../../utils/socket";
+import getWs from "../../utils/socket";
 import Deck from "../../components/Deck";
 
 class DeckContainer extends React.Component {
   state = {
-    deck: null
+    deck: null,
+    ws: getWs()
   };
   componentDidMount = () => {
-    ws.on("DECKS:SEED", decks => {
-      debugger;
-      console.log(decks);
+    this.state.ws.on("DECKS:SEED", decks => {
       this.setState({ deck: decks[0] });
     });
 
-    ws.emit("DECKS:REQUEST_SEED");
+    this.state.ws.emit("DECKS:REQUEST_SEED");
   };
 
   getActions = () => {
@@ -26,8 +25,7 @@ class DeckContainer extends React.Component {
       switch (action.type) {
         case "PRESS":
           onPress = () => {
-            console.log(action);
-            ws.emit("PRESS", {
+            this.state.ws.emit("PRESS", {
               key: action.press.key,
               modifier: action.press.modifier
             });

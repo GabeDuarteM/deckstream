@@ -3,6 +3,8 @@ import styled from "styled-components/native";
 import DeckButton from "../DeckButton";
 
 const StyledRootDeck = styled.View`
+  margin: 48px;
+  margin-top: 0px;
   height: 100%;
   display: flex;
   align-items: center;
