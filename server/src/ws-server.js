@@ -1,22 +1,12 @@
-const socketIo = require('socket.io')
+const WebSocket = require('ws')
 const robot = require('robotjs')
 // const OBSWebSocket = require('obs-websocket-js')
-const wsLogger = require('./utils/ws-logger')
 const { getDecks, saveDeck } = require('./db-service')
+const SocketWrapper = require('./utils/socketWrapper')
 
-const io = socketIo()
-io.listen(8080)
-
-// const obs = new OBSWebSocket()
-// obs.connect({ address: '', password: '' })
-// obs.on('error', (evt) => {
-//   console.log(JSON.stringify(evt))
-// })
-
-io.on('connection', (socket) => {
-  console.log('client connected')
-  socket.use(wsLogger)
-
+;(async () => {
+  const socket = new SocketWrapper(new WebSocket.Server({ port: 8080 }))
+  await socket.waitForConnection()
   socket.on('DECKS:REQUEST_SEED', () => {
     socket.emit('DECKS:SEED', getDecks())
   })
@@ -29,7 +19,13 @@ io.on('connection', (socket) => {
   socket.on('PRESS', ({ key, modifier }) => {
     robot.keyTap(key, modifier)
   })
-})
+})()
+
+// const obs = new OBSWebSocket()
+// obs.connect({ address: '', password: '' })
+// obs.on('error', (evt) => {
+//   console.log(JSON.stringify(evt))
+// })
 
 // ws.on('message', async (message) => {
 //   const obj = parseWsMessage(message)

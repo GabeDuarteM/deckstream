@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components/App'
 import 'typeface-roboto'
+import AppContainer from './containers/AppContainer/AppContainer'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<AppContainer />, document.getElementById('root'))

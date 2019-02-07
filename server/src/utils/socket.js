@@ -1,5 +1,5 @@
-import io from 'socket.io-client'
+import SocketWrapper from './socketWrapper'
 
-const ws = io('ws://localhost:8080')
+const ws = new SocketWrapper(new WebSocket('ws://localhost:8080'))
 
 export default ws

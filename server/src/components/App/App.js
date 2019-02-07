@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
 
 const theme = getTheme()
 
-const App = () => {
+const App = ({ loading }) => {
   return (
     <ThemeProvider theme={theme}>
       <MuiThemeProvider theme={theme}>
@@ -29,7 +29,7 @@ const App = () => {
             <GlobalStyles />
             <CssBaseline />
             <Header />
-            <DeckContainer />
+            {loading ? 'loading' : <DeckContainer />}
           </>
         </ModalContextProvider>
       </MuiThemeProvider>
