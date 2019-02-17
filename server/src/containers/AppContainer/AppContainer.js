@@ -6,7 +6,7 @@ const AppContainer = () => {
   const { connected, setConnected } = React.useState(false)
 
   const waitForSocket = async () => {
-    await ws.waitForConnection()
+    await ws.waitConnection()
     setConnected(true)
   }
 

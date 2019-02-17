@@ -1,12 +1,14 @@
 const WebSocket = require('ws')
 const robot = require('robotjs')
 // const OBSWebSocket = require('obs-websocket-js')
+const SocketWrapper = require('simple-ws-wrapper')
 const { getDecks, saveDeck } = require('./db-service')
-const SocketWrapper = require('./utils/socketWrapper')
 
-;(async () => {
+;(() => {
   const socket = new SocketWrapper(new WebSocket.Server({ port: 8080 }))
-  await socket.waitForConnection()
+  socket.on('connection', () => {
+    console.log('client connected')
+  })
   socket.on('DECKS:REQUEST_SEED', () => {
     socket.emit('DECKS:SEED', getDecks())
   })
