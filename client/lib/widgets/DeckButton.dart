@@ -12,15 +12,15 @@ class DeckButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 120,
-        width: 120,
-        child: FlatButton(
+        height: 90,
+        width: 90,
+        child: RaisedButton(
           child: Text(action.name),
           onPressed: () {
             performAction(action);
           },
         ),
-        color: Colors.teal,
+        // color: Theme.of(context).buttonColor,
       ),
     );
   }

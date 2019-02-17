@@ -44,7 +44,9 @@ class DeckstreamState extends State<DeckStream> {
     return MaterialApp(
       title: 'DeckStream',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Color.fromRGBO(40, 60, 80, 1),
+        primarySwatch: Colors.teal,
       ),
       home: Scaffold(
         body: Home(setDecks, activeDeck),

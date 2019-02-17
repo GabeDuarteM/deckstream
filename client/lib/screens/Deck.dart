@@ -16,12 +16,17 @@ class Deck extends StatelessWidget {
       return Center(child: Text("Select a deck"));
     }
 
-    return GridView.count(
-      crossAxisCount: 5,
-      padding: const EdgeInsets.fromLTRB(100, 30, 100, 30),
-      children: _deck.actions
-          .map((Action action) => DeckButton(action, _performAction))
-          .toList(),
+    return Center(
+      child: Container(
+        width: 530,
+        child: GridView.count(
+          crossAxisCount: 5,
+          // padding: const EdgeInsets.all(4.0),
+          children: _deck.actions
+              .map((Action action) => DeckButton(action, _performAction))
+              .toList(),
+        ),
+      ),
     );
   }
 }
