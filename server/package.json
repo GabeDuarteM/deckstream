@@ -16,7 +16,7 @@
   "homepage": "./",
   "dependencies": {
     "@material-ui/core": "3.9.1",
-    "cuid": "2.1.4",
+    "cuid": "2.1.6",
     "electron": "4.0.5",
     "immer": "^2.0.0",
     "lowdb": "1.0.0",
