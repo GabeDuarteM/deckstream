@@ -12,7 +12,7 @@ const StyledHeader = styled.div`
 `
 
 const Header = () => {
-  return <StyledHeader>DeckStreamer</StyledHeader>
+  return <StyledHeader>DeckStream</StyledHeader>
 }
 
 export default Header

@@ -9527,10 +9527,10 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simple-ws-wrapper@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/simple-ws-wrapper/-/simple-ws-wrapper-1.0.0.tgz#eafbfe8fff442a2e31f783287229479f9c5bbfd2"
-  integrity sha512-rVMdpBaJ17r29qRQZ95L38u4hBRXSoL91gIAZPGh+uQQsm9gK6H9cHef0N5xmy6WECd8DjpVcWjQwdRqYn+rWA==
+simple-ws-wrapper@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/simple-ws-wrapper/-/simple-ws-wrapper-1.0.1.tgz#13838338c052edcaf96e4dc5778ac83a4312e960"
+  integrity sha512-q88Q0pPxyMeDUuPit7+hztdHp//5kMGTKQ6/fa6xSec8vxRNxD1ElRQWGqwusnh6oK7423E5o61qpr9sFGHDvw==
 
 single-line-log@^1.1.2:
   version "1.1.2"

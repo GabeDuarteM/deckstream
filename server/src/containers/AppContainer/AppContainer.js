@@ -3,7 +3,7 @@ import ws from '../../utils/socket'
 import App from '../../components/App'
 
 const AppContainer = () => {
-  const { connected, setConnected } = React.useState(false)
+  const [connected, setConnected] = React.useState(false)
 
   const waitForSocket = async () => {
     await ws.waitConnection()
@@ -14,7 +14,7 @@ const AppContainer = () => {
     waitForSocket()
   }, [])
 
-  return <App loading={connected} />
+  return <App loading={!connected} />
 }
 
 export default AppContainer

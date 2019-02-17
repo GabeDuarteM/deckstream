@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import { Button } from '@material-ui/core'
 
-const StyledDeckButton = styled.div`
+const StyledDeckButton = styled(Button)`
   width: 76px;
   min-height: 76px;
   display: -webkit-box;
@@ -11,12 +12,15 @@ const StyledDeckButton = styled.div`
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  background-color: ${({ theme }) => theme.color.primary[2]};
   border-radius: 4px;
 `
 
 const DeckButton = ({ name, ...rest }) => {
-  return <StyledDeckButton {...rest}>{name}</StyledDeckButton>
+  return (
+    <StyledDeckButton variant="contained" color="secondary" {...rest}>
+      {name}
+    </StyledDeckButton>
+  )
 }
 
 export default DeckButton

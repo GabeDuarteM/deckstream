@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
   body,
   #root {
     font-family: ${({ theme }) => theme.font};
-    background-color: ${({ theme }) => theme.color.primary[0]};
+    background-color: ${({ theme }) => theme.color.primary[2]};
     user-select: none;
     color: ${({ theme }) => theme.color.font};
     height: 100%;

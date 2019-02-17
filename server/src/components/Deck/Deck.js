@@ -12,7 +12,6 @@ const StyledDeckRoot = styled.div`
 `
 
 const StyledDeck = styled.div`
-  background-color: ${({ theme }) => theme.color.primary[1]};
   border-radius: 8px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
