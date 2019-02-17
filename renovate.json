@@ -1,0 +1,4 @@
+{
+  "extends": ["config:base"],
+  "includePaths": ["server/package.json"]
+}
