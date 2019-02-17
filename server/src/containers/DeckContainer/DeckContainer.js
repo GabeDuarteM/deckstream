@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import cuid from 'cuid'
+import produce from 'immer'
+
 import ws from '../../utils/socket'
 import Deck from '../../components/Deck'
 
-const DeckContainer = () => {
-  const [deck, setDeck] = useState(null)
-  useEffect(() => {
-    ws.on('DECKS:SEED', (decks) => {
-      setDeck(decks[0])
+const DeckContainer = ({ deck }) => {
+  const updateAction = (action) => {
+    const newDeck = produce(deck, (draftDeck) => {
+      if (action.id) {
+        const oldActionIndex = draftDeck.actions.findIndex(
+          (x) => x.id === action.id,
+        )
+
+        draftDeck.actions[oldActionIndex] = action
+
+        return
+      }
+
+      draftDeck.actions.push({ ...action, id: cuid() })
     })
 
-    ws.emit('DECKS:REQUEST_SEED')
-  }, [])
-
-  const updateAction = (action) => {
-    const newDeck = {
-      ...deck,
-      actions: action.id
-        ? deck.actions.map((x) => (x.id === action.id ? action : x))
-        : [...deck.actions, { ...action, id: cuid() }],
-    }
-    setDeck(newDeck)
     ws.emit('DECKS:UPDATE', { id: newDeck.id, deck: newDeck })
   }
 

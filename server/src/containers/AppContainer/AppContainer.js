@@ -4,9 +4,17 @@ import App from '../../components/App'
 
 const AppContainer = () => {
   const [connected, setConnected] = React.useState(false)
+  const [decks, setDecks] = React.useState(null)
+  const [activeDeckId, setActiveDeckId] = React.useState(null)
 
   const waitForSocket = async () => {
+    ws.on('DECKS:SEED', (seedDecks) => {
+      setDecks(seedDecks)
+    })
+
     await ws.waitConnection()
+
+    ws.emit('DECKS:REQUEST_SEED')
     setConnected(true)
   }
 
@@ -14,7 +22,14 @@ const AppContainer = () => {
     waitForSocket()
   }, [])
 
-  return <App loading={!connected} />
+  return (
+    <App
+      decks={decks}
+      activeDeck={(decks && decks.find((x) => x.id === activeDeckId)) || null}
+      setActiveDeckId={setActiveDeckId}
+      loading={!connected}
+    />
+  )
 }
 
 export default AppContainer

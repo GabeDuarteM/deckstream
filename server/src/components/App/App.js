@@ -1,6 +1,14 @@
 import React from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components/macro'
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import {
+  CssBaseline,
+  MuiThemeProvider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+} from '@material-ui/core'
 import Header from '../Header'
 import getTheme from '../../theme'
 import { ModalContextProvider } from '../../context/ModalContext/ModalContext'
@@ -20,7 +28,7 @@ const GlobalStyles = createGlobalStyle`
 
 const theme = getTheme()
 
-const App = ({ loading }) => {
+const App = ({ loading, decks, activeDeck, setActiveDeckId }) => {
   return (
     <ThemeProvider theme={theme}>
       <MuiThemeProvider theme={theme}>
@@ -29,7 +37,26 @@ const App = ({ loading }) => {
             <GlobalStyles />
             <CssBaseline />
             <Header />
-            {loading ? 'loading' : <DeckContainer />}
+            <Drawer open={!activeDeck}>
+              <List>
+                {decks &&
+                  decks.map((deck) => (
+                    <ListItem
+                      onClick={() => setActiveDeckId(deck.id)}
+                      button
+                      key={deck}
+                    >
+                      <ListItemText primary={deck.id} />
+                    </ListItem>
+                  ))}
+                <Divider />
+              </List>
+            </Drawer>
+            {loading && !activeDeck ? (
+              'loading'
+            ) : (
+              <DeckContainer deck={activeDeck} />
+            )}
           </>
         </ModalContextProvider>
       </MuiThemeProvider>
