@@ -18,6 +18,7 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
   },
+  headerHeight: '32px',
 })
 
 const getTheme = () => theme

@@ -20,7 +20,6 @@ class DeckButton extends StatelessWidget {
             performAction(action);
           },
         ),
-        // color: Theme.of(context).buttonColor,
       ),
     );
   }

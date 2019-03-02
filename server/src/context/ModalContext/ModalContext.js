@@ -1,16 +1,20 @@
-import React, { createContext, useState } from 'react'
+import React, { useContext, createContext, useState } from 'react'
 
 const ModalContext = createContext()
 
-export const ModalContextProvider = ({ children }) => {
+const ModalContextProvider = ({ children }) => {
   const [state, setState] = useState({
     macroDetails: { open: false, action: null },
   })
-  const toggleOpenModal = (modalName, content) =>
+
+  const toggleOpenModal = (modalName, content = {}) => {
+    const open = !state[modalName].open
+
     setState({
       ...state,
-      [modalName]: { open: !state[modalName].open, ...content },
+      [modalName]: { open, ...content },
     })
+  }
 
   return (
     <ModalContext.Provider value={{ ...state, toggleOpenModal }}>
@@ -19,4 +23,8 @@ export const ModalContextProvider = ({ children }) => {
   )
 }
 
-export default ModalContext
+export const useModalContext = () => {
+  return useContext(ModalContext)
+}
+
+export default ModalContextProvider

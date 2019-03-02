@@ -1,18 +1,10 @@
 import React from 'react'
-import { createGlobalStyle, ThemeProvider } from 'styled-components/macro'
-import {
-  CssBaseline,
-  MuiThemeProvider,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-} from '@material-ui/core'
+import { createGlobalStyle } from 'styled-components/macro'
+import { CssBaseline } from '@material-ui/core'
 import Header from '../Header'
-import getTheme from '../../theme'
-import { ModalContextProvider } from '../../context/ModalContext/ModalContext'
 import DeckContainer from '../../containers/DeckContainer'
+import Providers from '../Providers'
+import DecksDrawer from '../DecksDrawer'
 
 const GlobalStyles = createGlobalStyle`
   html,
@@ -26,41 +18,25 @@ const GlobalStyles = createGlobalStyle`
   }
 `
 
-const theme = getTheme()
-
 const App = ({ loading, decks, activeDeck, setActiveDeckId }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <MuiThemeProvider theme={theme}>
-        <ModalContextProvider>
-          <>
-            <GlobalStyles />
-            <CssBaseline />
-            <Header />
-            <Drawer open={!activeDeck}>
-              <List>
-                {decks &&
-                  decks.map((deck) => (
-                    <ListItem
-                      onClick={() => setActiveDeckId(deck.id)}
-                      button
-                      key={deck}
-                    >
-                      <ListItemText primary={deck.id} />
-                    </ListItem>
-                  ))}
-                <Divider />
-              </List>
-            </Drawer>
-            {loading && !activeDeck ? (
-              'loading'
-            ) : (
-              <DeckContainer deck={activeDeck} />
-            )}
-          </>
-        </ModalContextProvider>
-      </MuiThemeProvider>
-    </ThemeProvider>
+    <Providers>
+      <>
+        <GlobalStyles />
+        <CssBaseline />
+        <Header />
+        <DecksDrawer
+          activeDeck={activeDeck}
+          decks={decks}
+          setActiveDeckId={setActiveDeckId}
+        />
+        {loading && !activeDeck ? (
+          'loading'
+        ) : (
+          <DeckContainer deck={activeDeck} />
+        )}
+      </>
+    </Providers>
   )
 }
 

@@ -102,10 +102,7 @@ class HomeState extends State<Home> {
   }
 
   void performAction(Action action) {
-    Map data;
-    if (action is PressAction) {
-      data = action.press.toMap();
-    }
+    Map data = action.extras;
     SocketMessage message = SocketMessage(action.type, data: data);
 
     _socket.add(message.toJson());

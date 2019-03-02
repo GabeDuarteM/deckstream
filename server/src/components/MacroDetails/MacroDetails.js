@@ -9,6 +9,7 @@ import {
   Button,
 } from '@material-ui/core'
 import Select from '../Select'
+import { TYPES } from '../../constants'
 
 const MainFields = styled.div`
   display: grid;
@@ -24,28 +25,28 @@ const AdditionalFields = styled.div`
   margin-top: 8px;
 `
 
-const TYPES = {
-  'OBS:CHANGE_SCENE': {
-    value: 'OBS:CHANGE_SCENE',
+const DROPDOWN_TYPES = {
+  [TYPES['OBS:CHANGE_SCENE']]: {
+    value: TYPES['OBS:CHANGE_SCENE'],
     text: 'OBS: Change scene',
   },
-  'OBS:TOGGLE_MIC_MUTE': {
-    value: 'OBS:TOGGLE_MIC_MUTE',
-    text: 'OBS: Toggle microphone mute',
-  },
-  PRESS: {
-    value: 'PRESS',
+  // [TYPES['OBS:TOGGLE_MIC_MUTE']]: {
+  //   value: TYPES['OBS:TOGGLE_MIC_MUTE'],
+  //   text: 'OBS: Toggle microphone mute',
+  // },
+  [TYPES.PRESS]: {
+    value: TYPES.PRESS,
     text: 'Press',
   },
-  TEXT: {
-    value: 'TEXT',
-    text: 'Text',
-  },
+  // [TYPES.TEXT]: {
+  //   value: TYPES.TEXT,
+  //   text: 'Text',
+  // },
 }
 
 const getAdditionalFieldsByType = (state) => {
   switch (state.type) {
-    case TYPES['OBS:CHANGE_SCENE'].value:
+    case DROPDOWN_TYPES['OBS:CHANGE_SCENE'].value:
       return {
         columns: 1,
         fields: [
@@ -65,21 +66,21 @@ const getAdditionalFieldsByType = (state) => {
         ],
       }
 
-    case TYPES.PRESS.value:
+    case DROPDOWN_TYPES.PRESS.value:
       return {
         columns: 2,
         fields: [
           <TextField
             key="key"
             label="Key"
-            value={state.press.key}
+            value={state.extras.key}
             onChange={(evt) => state.setKey(evt.target.value)}
           />,
           <Select
             key="modifiers"
             label="Modifiers"
             multiple
-            value={state.press.modifier}
+            value={state.extras.modifier}
             onChange={state.setModifier}
             items={[
               { value: 'control', text: 'Ctrl' },
@@ -106,7 +107,7 @@ const getAdditionalFieldsByType = (state) => {
 
 const MacroDetails = (props) => {
   const { name, type, setType, setName, open, onSave, onClose } = props
-  const types = Object.values(TYPES)
+  const types = Object.values(DROPDOWN_TYPES)
 
   const additonalFields = getAdditionalFieldsByType(props)
 

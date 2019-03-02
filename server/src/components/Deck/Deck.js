@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import DeckButton from '../DeckButton'
-import ModalContext from '../../context/ModalContext'
 import MacroDetailsContainer from '../../containers/MacroDetailsContainer'
 
 const StyledDeckRoot = styled.div`
@@ -19,9 +18,7 @@ const StyledDeck = styled.div`
   padding: 8px;
 `
 
-const Deck = ({ actions, updateAction }) => {
-  const { toggleOpenModal } = React.useContext(ModalContext)
-
+const Deck = ({ actions, updateAction, toggleOpenModal }) => {
   return (
     <StyledDeckRoot>
       <StyledDeck>

@@ -4,35 +4,12 @@ class Action {
   final String id;
   final String type;
   final String name;
+  final dynamic extras;
 
-  Action({@required this.id, @required this.type, @required this.name});
-}
-
-class PressAction implements Action {
-  final Press press;
-  final String id;
-  final String type;
-  final String name;
-
-  PressAction({
+  Action({
     @required this.id,
     @required this.type,
     @required this.name,
-    @required this.press,
+    @required this.extras,
   });
-}
-
-class Press {
-  final String key;
-  final List modifier;
-
-  Map<String, dynamic> toMap() {
-    final map = Map<String, dynamic>();
-    map["modifier"] = modifier;
-    map["key"] = key;
-
-    return map;
-  }
-
-  Press(this.key, {this.modifier});
 }

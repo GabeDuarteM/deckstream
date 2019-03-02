@@ -4,6 +4,7 @@ import produce from 'immer'
 
 import ws from '../../utils/socket'
 import Deck from '../../components/Deck'
+import { useModalContext } from '../../context/ModalContext/ModalContext'
 
 const DeckContainer = ({ deck }) => {
   const updateAction = (action) => {
@@ -23,8 +24,15 @@ const DeckContainer = ({ deck }) => {
 
     ws.emit('DECKS:UPDATE', { id: newDeck.id, deck: newDeck })
   }
+  const { toggleOpenModal } = useModalContext()
 
-  return <Deck {...deck} updateAction={updateAction} />
+  return (
+    <Deck
+      {...deck}
+      toggleOpenModal={toggleOpenModal}
+      updateAction={updateAction}
+    />
+  )
 }
 
 export default DeckContainer

@@ -14,7 +14,7 @@ class SocketConnector extends StatelessWidget {
     ipController.addListener(() {
       onIpChange(ipController.text);
     });
-    ipController.text = "localhost";
+    ipController.text = "192.168.123.175";
   }
 
   @override

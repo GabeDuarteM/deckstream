@@ -1,87 +1,54 @@
-import React, { useReducer, useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import MacroDetails from '../../components/MacroDetails'
-import ModalContext from '../../context/ModalContext/ModalContext'
+import { useModalContext } from '../../context/ModalContext/ModalContext'
 import ws from '../../utils/socket'
-
-const initialState = {
-  name: '',
-  type: '',
-  scene: null,
-  scenes: null,
-  press: { key: '', modifier: [] },
-}
-
-const reducer = (state, { type, payload }) => {
-  switch (type) {
-    case 'name':
-      return { ...state, name: payload }
-
-    case 'type':
-      return { ...state, type: payload }
-
-    case 'scene':
-      return { ...state, scene: payload }
-
-    case 'scenes':
-      return { ...state, scenes: payload }
-
-    case 'press':
-      return { ...state, press: payload }
-
-    case 'edit':
-      return { ...payload }
-
-    case 'reset':
-      return initialState
-
-    default:
-      return state
-  }
-}
+import useActionReducer from '../../reducers/action'
 
 const MacroDetailsContainer = ({ onSave }) => {
-  const { macroDetails, toggleOpenModal } = useContext(ModalContext)
+  const { macroDetails, toggleOpenModal } = useModalContext()
+  const {
+    action,
+    setEdit,
+    setScenes,
+    setName,
+    setType,
+    setScene,
+    setModifier,
+    setKey,
+    resetState,
+  } = useActionReducer()
+  const { extras, ...restAction } = action
 
-  const [state, dispatch] = useReducer(reducer, initialState)
   useEffect(() => {
     if (macroDetails.action) {
-      dispatch({ type: 'edit', payload: macroDetails.action })
+      setEdit(macroDetails.action)
     }
   }, [macroDetails.action])
-
-  const setName = (payload) => dispatch({ type: 'name', payload })
-  const setType = (payload) => dispatch({ type: 'type', payload })
-  const setScene = (payload) => dispatch({ type: 'scene', payload })
-  const setScenes = (payload) => dispatch({ type: 'scenes', payload })
-  const setPress = (payload) =>
-    dispatch({ type: 'press', payload: { ...state.press, ...payload } })
-  const resetState = () => dispatch({ type: 'reset' })
-
-  const setModifier = (modifier) => setPress({ modifier })
-  const setKey = (key) => setPress({ key })
 
   useEffect(() => {
     ws.on('GET_SCENES', (scenes) => {
       setScenes(scenes)
     })
 
-    if (state.type === 'OBS:CHANGE_SCENE') {
+    if (action.type === 'OBS:CHANGE_SCENE') {
       ws.emit('GET_SCENES')
     }
-  }, [state.type])
+  }, [action.type])
 
   const onClose = () => {
-    toggleOpenModal('macroDetails', { action: null })
+    toggleOpenModal('macroDetails')
     resetState()
   }
+
   const handleOnSave = () => {
-    onSave({ ...state })
+    onSave({ ...action })
     onClose()
   }
 
   return (
     <MacroDetails
-      {...state}
+      {...restAction}
+      extras={extras}
       open={macroDetails.open}
       onClose={onClose}
       onSave={handleOnSave}
