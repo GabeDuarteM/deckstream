@@ -38,6 +38,10 @@ const DROPDOWN_TYPES = {
     value: TYPES.PRESS,
     text: 'Press',
   },
+  [TYPES.FOLDER]: {
+    value: TYPES.FOLDER,
+    text: 'Folder',
+  },
   // [TYPES.TEXT]: {
   //   value: TYPES.TEXT,
   //   text: 'Text',
@@ -92,6 +96,7 @@ const getAdditionalFieldsByType = (state) => {
         ],
       }
 
+    case TYPES.FOLDER:
     case '':
     case undefined:
     case null:

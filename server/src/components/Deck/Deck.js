@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import DeckButton from '../DeckButton'
 import MacroDetailsContainer from '../../containers/MacroDetailsContainer'
+import { TYPES } from '../../constants'
 
 const StyledDeckRoot = styled.div`
   height: 100%;
@@ -18,16 +19,30 @@ const StyledDeck = styled.div`
   padding: 8px;
 `
 
-const Deck = ({ actions, updateAction, toggleOpenModal }) => {
+const Deck = ({
+  actions,
+  updateAction,
+  toggleOpenModal,
+  addActionsToStack,
+  returnOneActionsStack,
+  hasPreviousActionsStack,
+}) => {
   return (
     <StyledDeckRoot>
       <StyledDeck>
+        {hasPreviousActionsStack && (
+          <DeckButton name="<" onClick={returnOneActionsStack} />
+        )}
         {actions &&
-          actions.map((x) => (
+          actions.map((action) => (
             <DeckButton
-              onClick={() => toggleOpenModal('macroDetails', { action: x })}
-              name={x.name}
-              key={x.id}
+              onClick={() =>
+                action.type === TYPES.FOLDER
+                  ? addActionsToStack(action.id, action.extras.actions)
+                  : toggleOpenModal('macroDetails', { action })
+              }
+              name={action.name}
+              key={action.id}
             />
           ))}
         <DeckButton name="+" onClick={() => toggleOpenModal('macroDetails')} />

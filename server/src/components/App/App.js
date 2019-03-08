@@ -30,7 +30,7 @@ const App = ({ loading, decks, activeDeck, setActiveDeckId }) => {
           decks={decks}
           setActiveDeckId={setActiveDeckId}
         />
-        {loading && !activeDeck ? (
+        {loading || !activeDeck ? (
           'loading'
         ) : (
           <DeckContainer deck={activeDeck} />

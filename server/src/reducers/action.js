@@ -21,6 +21,10 @@ const getDefaultExtrasByType = (type) => {
       return {
         scene: '',
       }
+    case TYPES.FOLDER:
+      return {
+        actions: [],
+      }
 
     default:
       throw new Error(`Unknown type: ${type}`)
