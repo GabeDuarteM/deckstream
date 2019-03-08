@@ -17,7 +17,7 @@
   "dependencies": {
     "@material-ui/core": "3.9.2",
     "cuid": "2.1.6",
-    "electron": "4.0.5",
+    "electron": "4.0.8",
     "immer": "^2.0.0",
     "lowdb": "1.0.0",
     "obs-websocket-js": "2.0.1",
