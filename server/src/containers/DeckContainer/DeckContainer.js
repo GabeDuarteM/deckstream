@@ -7,37 +7,45 @@ import Deck from '../../components/Deck'
 import { useModalContext } from '../../context/ModalContext/ModalContext'
 
 const isFolder = (action) => {
-  return action && action.extras && action.extras.actions
+  return Boolean(action && action.extras && action.extras.actions)
+}
+
+const getActions = (actions, actionFromStack) => {
+  if (isFolder(actionFromStack)) {
+    return actionFromStack.extras.actions
+  }
+
+  return actions
 }
 
 const findAndMutateAction = (draftActions, newAction, actionsStack) => {
   const [currentStack, ...restActionsStack] = actionsStack
 
-  const currentDraftAction = draftActions.find(
+  const currentDraftActionFromStack = draftActions.find(
     (action) => action.id === currentStack,
   )
+  const correctActions = getActions(draftActions, currentDraftActionFromStack)
 
   if (restActionsStack.length === 0) {
     if (newAction.id) {
-      const currentStackIndex = draftActions.extras.actions.findIndex(
-        currentStack,
+      const currentStackIndex = correctActions.findIndex(
+        (x) => x.id === newAction.id,
       )
-      draftActions[currentStackIndex] = newAction
+      if (currentStackIndex === -1) {
+        throw new Error(`Action with id ${newAction.id} was not found`)
+      }
+
+      correctActions[currentStackIndex] = newAction
 
       return
     }
 
-    if (isFolder(currentDraftAction)) {
-      currentDraftAction.extras.actions.push({ ...newAction, id: cuid() })
-      return
-    }
-
-    draftActions.push({ ...newAction, id: cuid() })
+    correctActions.push({ ...newAction, id: cuid() })
 
     return
   }
 
-  const nextDraftAction = currentDraftAction.extras.actions.find(
+  const nextDraftAction = correctActions.find(
     (action) => action.id === restActionsStack[0],
   )
 

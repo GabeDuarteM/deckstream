@@ -79,6 +79,7 @@ describe('<DeckContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
+
   it('should not have a back button on the root screen', () => {
     const deck = getEmptyDeck()
     const component = getComponent(deck)
@@ -121,7 +122,7 @@ describe('<DeckContainer />', () => {
     expect(getByLabelText(/add/i)).toBeInTheDocument()
   })
 
-  describe('Add actions', () => {
+  describe('add actions', () => {
     it('should allow adding a new folder when on the root screen', () => {
       const deck = getEmptyDeck()
       const component = getComponent(deck)
@@ -292,6 +293,73 @@ describe('<DeckContainer />', () => {
       fireEvent.click(backButton)
 
       expect(queryByLabelText(nameValue)).toBe(null)
+    })
+  })
+
+  describe('edit actions', () => {
+    it('should allow to edit an action on the root screen', () => {
+      const deck = getDeckWithActions()
+      const component = getComponent(deck)
+
+      const nameValue = 'push g'
+      const keyValue = 'g'
+
+      const { getByText, getByLabelText, rerender } = render(component)
+
+      const pushPAction = getByText(/push p/i)
+      fireEvent.click(pushPAction)
+
+      const nameField = getByLabelText(/name/i)
+      fireEvent.change(nameField, { target: { value: nameValue } })
+
+      const keyField = getByLabelText(/key/i)
+      fireEvent.change(keyField, { target: { value: keyValue } })
+
+      const saveField = getByText(/save/i)
+      fireEvent.click(saveField)
+
+      expect(ws.emit).toHaveBeenCalledTimes(1)
+
+      const newDeckCall = ws.emit.mock.calls[0]
+      const newDeck = newDeckCall[1].deck
+
+      rerender(getComponent(newDeck))
+
+      expect(getByText(nameValue)).toBeInTheDocument()
+    })
+
+    it('should allow to edit an action while inside a folder', () => {
+      const deck = getDeckWithActions()
+      const component = getComponent(deck)
+
+      const nameValue = 'push g'
+      const keyValue = 'g'
+
+      const { getByText, getByLabelText, rerender } = render(component)
+
+      const rootFolder = getByText(/root folder/i)
+      fireEvent.click(rootFolder)
+
+      const pushXAction = getByText(/push x/i)
+      fireEvent.click(pushXAction)
+
+      const nameField = getByLabelText(/name/i)
+      fireEvent.change(nameField, { target: { value: nameValue } })
+
+      const keyField = getByLabelText(/key/i)
+      fireEvent.change(keyField, { target: { value: keyValue } })
+
+      const saveField = getByText(/save/i)
+      fireEvent.click(saveField)
+
+      expect(ws.emit).toHaveBeenCalledTimes(1)
+
+      const newDeckCall = ws.emit.mock.calls[0]
+      const newDeck = newDeckCall[1].deck
+
+      rerender(getComponent(newDeck))
+
+      expect(getByText(nameValue)).toBeInTheDocument()
     })
   })
 })
