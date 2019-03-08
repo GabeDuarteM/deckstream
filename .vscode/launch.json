@@ -21,6 +21,17 @@
       "request": "launch",
       "type": "dart",
       "program": "./client/lib/main.dart"
+    },
+    {
+      "name": "Debug server tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/server/node_modules/.bin/react-scripts",
+      "args": ["test", "--runInBand", "--no-cache", "--no-watch"],
+      "cwd": "${workspaceRoot}/server",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

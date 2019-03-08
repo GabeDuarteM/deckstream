@@ -31,7 +31,11 @@ const Deck = ({
     <StyledDeckRoot>
       <StyledDeck>
         {hasPreviousActionsStack && (
-          <DeckButton name="<" onClick={returnOneActionsStack} />
+          <DeckButton
+            aria-label="Back"
+            name="<"
+            onClick={returnOneActionsStack}
+          />
         )}
         {actions &&
           actions.map((action) => (
@@ -45,7 +49,11 @@ const Deck = ({
               key={action.id}
             />
           ))}
-        <DeckButton name="+" onClick={() => toggleOpenModal('macroDetails')} />
+        <DeckButton
+          aria-label="Add"
+          name="+"
+          onClick={() => toggleOpenModal('macroDetails')}
+        />
         <MacroDetailsContainer onSave={updateAction} />
       </StyledDeck>
     </StyledDeckRoot>

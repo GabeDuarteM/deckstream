@@ -55,6 +55,7 @@ const getAdditionalFieldsByType = (state) => {
         columns: 1,
         fields: [
           <Select
+            id="action-scene"
             key="scene"
             label="Scene"
             value={state.scene}
@@ -75,12 +76,14 @@ const getAdditionalFieldsByType = (state) => {
         columns: 2,
         fields: [
           <TextField
+            id="action-key"
             key="key"
             label="Key"
             value={state.extras.key}
             onChange={(evt) => state.setKey(evt.target.value)}
           />,
           <Select
+            id="action-modifiers"
             key="modifiers"
             label="Modifiers"
             multiple
@@ -114,22 +117,29 @@ const MacroDetails = (props) => {
   const { name, type, setType, setName, open, onSave, onClose } = props
   const types = Object.values(DROPDOWN_TYPES)
 
-  const additonalFields = getAdditionalFieldsByType(props)
+  const additionalFields = getAdditionalFieldsByType(props)
 
   return (
     <Dialog open={open} fullWidth>
-      <DialogTitle>Macro</DialogTitle>
+      <DialogTitle>Action</DialogTitle>
       <DialogContent>
         <MainFields>
           <TextField
+            id="action-name"
             label="Name"
             value={name}
             onChange={(evt) => setName(evt.target.value)}
           />
-          <Select label="Type" value={type} onChange={setType} items={types} />
+          <Select
+            id="action-type"
+            label="Type"
+            value={type}
+            onChange={setType}
+            items={types}
+          />
         </MainFields>
-        <AdditionalFields columns={additonalFields.columns}>
-          {additonalFields.fields}
+        <AdditionalFields columns={additionalFields.columns}>
+          {additionalFields.fields}
         </AdditionalFields>
       </DialogContent>
       <DialogActions>
