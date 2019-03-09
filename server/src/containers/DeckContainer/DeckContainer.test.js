@@ -19,13 +19,13 @@ const getDeckWithActions = () => ({
       name: 'root folder',
       type: 'FOLDER',
       extras: {
-        actions: [
+        folderActions: [
           {
             id: 'cjt01fwnk00024g5ubzw5qhn4',
             name: 'subfolder 1',
             type: 'FOLDER',
             extras: {
-              actions: [],
+              folderActions: [],
             },
           },
           {
@@ -42,13 +42,13 @@ const getDeckWithActions = () => ({
             name: 'subfolder 2',
             type: 'FOLDER',
             extras: {
-              actions: [
+              folderActions: [
                 {
                   id: 'cjt01gq8w00054g5uf44rbk42',
                   name: 'subsubfolder',
                   type: 'FOLDER',
                   extras: {
-                    actions: [],
+                    folderActions: [],
                   },
                 },
               ],

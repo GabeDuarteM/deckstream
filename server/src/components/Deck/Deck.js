@@ -42,7 +42,7 @@ const Deck = ({
             <DeckButton
               onClick={() =>
                 action.type === TYPES.FOLDER
-                  ? addActionsToStack(action.id, action.extras.actions)
+                  ? addActionsToStack(action.id, action.extras.folderActions)
                   : toggleOpenModal('macroDetails', { action })
               }
               name={action.name}

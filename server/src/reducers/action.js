@@ -23,7 +23,7 @@ const getDefaultExtrasByType = (type) => {
       }
     case TYPES.FOLDER:
       return {
-        actions: [],
+        folderActions: [],
       }
 
     default:

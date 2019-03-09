@@ -7,12 +7,12 @@ import Deck from '../../components/Deck'
 import { useModalContext } from '../../context/ModalContext/ModalContext'
 
 const isFolder = (action) => {
-  return Boolean(action && action.extras && action.extras.actions)
+  return Boolean(action && action.extras && action.extras.folderActions)
 }
 
 const getActions = (actions, actionFromStack) => {
   if (isFolder(actionFromStack)) {
-    return actionFromStack.extras.actions
+    return actionFromStack.extras.folderActions
   }
 
   return actions
@@ -50,7 +50,7 @@ const findAndMutateAction = (draftActions, newAction, actionsStack) => {
   )
 
   findAndMutateAction(
-    nextDraftAction.extras.actions,
+    nextDraftAction.extras.folderActions,
     newAction,
     restActionsStack,
   )
@@ -60,7 +60,7 @@ const getLastActionsFromStack = (actionsStack, deck) => {
   let actions = deck.actions
   for (let i = 0; i < actionsStack.length; i++) {
     const nextActionId = actionsStack[i]
-    actions = actions.find((x) => x.id === nextActionId).extras.actions
+    actions = actions.find((x) => x.id === nextActionId).extras.folderActions
   }
 
   return actions
