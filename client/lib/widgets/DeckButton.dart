@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../utils/Action.dart';
-
 class DeckButton extends StatelessWidget {
-  final Action action;
-  final Function performAction;
+  final String text;
+  final Function tapAction;
 
-  DeckButton(this.action, this.performAction);
+  DeckButton(this.text, this.tapAction);
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +13,8 @@ class DeckButton extends StatelessWidget {
         height: 90,
         width: 90,
         child: RaisedButton(
-          child: Text(action.name),
-          onPressed: () {
-            performAction(action);
-          },
+          child: Text(text),
+          onPressed: tapAction,
         ),
       ),
     );

@@ -13,3 +13,14 @@ class Action {
     @required this.extras,
   });
 }
+
+List<Action> mapToActions(actionsMapList) {
+  return actionsMapList.map<Action>((obj) {
+    return Action(
+      id: obj["id"],
+      name: obj["name"],
+      type: obj["type"],
+      extras: obj["extras"],
+    );
+  }).toList();
+}
