@@ -16,7 +16,7 @@
   },
   "homepage": "./",
   "dependencies": {
-    "@material-ui/core": "3.9.2",
+    "@material-ui/core": "3.9.3",
     "cuid": "2.1.6",
     "electron": "4.0.8",
     "immer": "2.1.1",
