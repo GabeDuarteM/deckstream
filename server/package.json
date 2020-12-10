@@ -17,7 +17,7 @@
   "homepage": "./",
   "dependencies": {
     "@material-ui/core": "3.9.3",
-    "cuid": "2.1.6",
+    "cuid": "2.1.8",
     "electron": "4.1.4",
     "immer": "2.1.1",
     "jest-dom": "3.1.3",
